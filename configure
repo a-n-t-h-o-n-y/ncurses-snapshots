@@ -3474,7 +3474,7 @@ echo "${ECHO_T}$with_curses_h" >&6
 modules_to_build="ncurses"
 test "X$cf_with_progs" != Xno && modules_to_build="$modules_to_build progs"
 test "X$cf_with_tack"  != Xno && modules_to_build="$modules_to_build tack"
-modules_to_build="$modules_to_build panel menu form"
+#modules_to_build="$modules_to_build panel menu form"
 
 test "$program_prefix" != NONE &&
   program_transform_name="s,^,$program_prefix,;$program_transform_name"
