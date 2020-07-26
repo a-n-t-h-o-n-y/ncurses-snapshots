@@ -30,7 +30,7 @@
 /****************************************************************************
  *  Author: Thomas E. Dickey                    1996-on                     *
  ****************************************************************************/
-/* $Id: test.priv.h,v 1.186 2020/05/10 00:36:06 tom Exp $ */
+/* $Id: test.priv.h,v 1.188 2020/07/25 22:56:33 tom Exp $ */
 
 #ifndef __TEST_PRIV_H
 #define __TEST_PRIV_H 1
@@ -391,6 +391,10 @@
 #include <curses.h>
 #endif
 
+#if !(defined(NCURSES_WGETCH_EVENTS) && defined(NEED_KEY_EVENT))
+#undef KEY_EVENT		/* reduce compiler-warnings with Visual C++ */
+#endif
+
 #if defined(HAVE_XCURSES) || defined(PDCURSES)
 /* no other headers */
 #undef  HAVE_SETUPTERM		/* nonfunctional */
@@ -436,6 +440,13 @@ extern int optind;
 
 #include <assert.h>
 #include <ctype.h>
+
+#if defined(_MSC_VER)
+#undef popen
+#define popen(s,n) _popen(s,n)
+#undef pclose
+#define pclose(s) _pclose(s)
+#endif
 
 #ifndef GCC_NORETURN
 #define GCC_NORETURN		/* nothing */

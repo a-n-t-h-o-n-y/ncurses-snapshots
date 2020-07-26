@@ -29,7 +29,7 @@ dnl***************************************************************************
 dnl
 dnl Author: Thomas E. Dickey 1995-on
 dnl
-dnl $Id: aclocal.m4,v 1.914 2020/05/31 20:50:13 tom Exp $
+dnl $Id: aclocal.m4,v 1.921 2020/07/25 23:04:09 anonymous.maarten Exp $
 dnl Macros used in NCURSES auto-configuration script.
 dnl
 dnl These macros are maintained separately from NCURSES.  The copyright on
@@ -2811,7 +2811,7 @@ test "$cf_cv_gnatprep_opt_t" = yes && GNATPREP_OPTS="-T $GNATPREP_OPTS"
 AC_SUBST(GNATPREP_OPTS)
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_GNAT_GENERICS version: 5 updated: 2020/05/31 16:49:35
+dnl CF_GNAT_GENERICS version: 6 updated: 2020/07/04 19:30:27
 dnl ----------------
 AC_DEFUN([CF_GNAT_GENERICS],
 [
@@ -2819,7 +2819,7 @@ AC_REQUIRE([CF_GNAT_VERSION])
 
 AC_MSG_CHECKING(if GNAT supports generics)
 case $cf_cv_gnat_version in
-(3.[[1-9]]*|[[4-9]].*|[[1-9]][[0-9]].*)
+(3.1[[1-9]]*|3.[[2-9]]*|[[4-9]].*|[[1-9]][[0-9]].[[0-9]]*|20[[0-9]][[0-9]])
 	cf_gnat_generics=yes
 	;;
 (*)
@@ -6377,7 +6377,7 @@ AC_MSG_RESULT($cf_prog_ln_sf)
 test "$cf_prog_ln_sf" = yes && LN_S="$LN_S -f"
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_REGEX version: 13 updated: 2020/03/10 18:53:47
+dnl CF_REGEX version: 14 updated: 2020/07/11 19:09:29
 dnl --------
 dnl Attempt to determine if we've got one of the flavors of regular-expression
 dnl code that we can support.
@@ -6389,7 +6389,7 @@ cf_regex_func=no
 cf_regex_libs="regex re"
 case $host_os in
 (mingw*)
-	cf_regex_libs="gnurx $cf_regex_libs"
+	cf_regex_libs="systre gnurx $cf_regex_libs"
 	;;
 esac
 
@@ -6644,7 +6644,7 @@ do
 done
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_SHARED_OPTS version: 96 updated: 2020/05/23 19:39:36
+dnl CF_SHARED_OPTS version: 98 updated: 2020/07/25 19:03:05
 dnl --------------
 dnl --------------
 dnl Attempt to determine the appropriate CC/LD options for creating a shared
@@ -6906,7 +6906,7 @@ CF_EOF
 		# Ignore first argument (compiler) and use LD (link.exe) unconditionally
 		LD="[$]LD"
 		clopts=()
-		ldopts=()
+		ldopts=("/subsystem:console")
 		libs=()
 		isdll=0
 		while test \[$]# -gt 0; do
@@ -6971,6 +6971,7 @@ EOF
 CF_EOF
 		chmod +x mk_prog.sh
 		LINK_PROGS="$SHELL ${rel_builddir}/mk_prog.sh"
+		LINK_TESTS="$SHELL ${rel_builddir}/mk_prog.sh"
 		;;
 	(mingw*)
 		cf_cv_shlib_version=mingw

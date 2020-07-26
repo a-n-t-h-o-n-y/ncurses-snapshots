@@ -1,4 +1,4 @@
-# $Id: Makefile.in,v 1.122 2020/03/08 16:13:11 tom Exp $
+# $Id: Makefile.in,v 1.125 2020/07/18 20:33:27 tom Exp $
 ##############################################################################
 # Copyright 2018,2020 Thomas E. Dickey                                       #
 # Copyright 1998-2015,2016 Free Software Foundation, Inc.                    #
@@ -89,7 +89,7 @@ CXXFLAGS	= @CXXFLAGS@ @EXTRA_CXXFLAGS@
 CXXLIBS		= @CXXLIBS@
 
 INCDIR		= ../include
-CPPFLAGS	= -DHAVE_CONFIG_H -I../c++ @CPPFLAGS@
+CPPFLAGS	= -DHAVE_CONFIG_H -DBUILDING_NCURSES_CXX -I../c++ @CPPFLAGS@
 
 CTAGS		= @CTAGS@
 ETAGS		= @ETAGS@
@@ -98,9 +98,9 @@ CC		= ${CXX}
 CCFLAGS		= $(CPPFLAGS) $(CXXFLAGS)
 
 CFLAGS_LIBTOOL	= $(CCFLAGS)
-CFLAGS_NORMAL	= $(CCFLAGS)
-CFLAGS_DEBUG	= $(CCFLAGS) @CXX_G_OPT@ -DTRACE
-CFLAGS_PROFILE	= $(CCFLAGS) -pg
+CFLAGS_NORMAL	= $(CCFLAGS) -DNCURSES_STATIC
+CFLAGS_DEBUG	= $(CCFLAGS) -DNCURSES_STATIC @CXX_G_OPT@ -DTRACE
+CFLAGS_PROFILE	= $(CCFLAGS) -DNCURSES_STATIC -pg
 CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@
 
 CFLAGS_DEFAULT	= $(CFLAGS_@DFT_UPR_MODEL@)
@@ -245,7 +245,7 @@ $(MODEL)/demo$o : $(srcdir)/demo.cc \
 		$(cursesm_h) \
 		$(cursesapp_h)
 	@echo 'compiling demo (obj_s)'
-	@$(LIBTOOL_COMPILE) $(CXX) $(CFLAGS_DEFAULT) -c $(srcdir)/demo.cc -o $@
+	@cd $(MODEL) && $(LIBTOOL_COMPILE) $(CXX) $(CFLAGS_DEFAULT) -c $(top_srcdir)/c++/demo.cc -o $@
 
 demo$x:	$(OBJS_DEMO) \
 	$(LIBRARIES)  \

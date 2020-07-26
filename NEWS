@@ -26,7 +26,7 @@
 -- sale, use or other dealings in this Software without prior written        --
 -- authorization.                                                            --
 -------------------------------------------------------------------------------
--- $Id: NEWS,v 1.3504 2020/06/07 00:22:03 tom Exp $
+-- $Id: NEWS,v 1.3527 2020/07/25 23:08:42 tom Exp $
 -------------------------------------------------------------------------------
 
 This is a log of changes that ncurses has gone through since Zeyd started
@@ -45,6 +45,57 @@ See the AUTHORS file for the corresponding full names.
 
 Changes through 1.9.9e did not credit all contributions;
 it is not possible to add this information.
+
+20200725
+	+ set LINK_TESTS in CF_SHARED_OPTS for msvc (patch by
+	  "Maarten Anonymous")
+	+ improved workaround for redefinition-warnings for KEY_EVENT.
+	+ improve man/term.5 section on legacy storage format (report by
+	  Florian Weimer).
+
+20200718
+	+ reduce redefinition-warnings for KEY_EVENT when building with Visual
+	  Studio C++.
+	+ define NCURSES_STATIC when compiling programs to link with static
+	  libraries, to work with MinGW vs Visual Studio C++.
+	> additional changes for building with Visual Studio C++ and msys2
+	  (reports/patches by "Maarten Anonymous")
+	+ modify c++/Makefile.in to set the current directory while compiling
+	  the main program, so the linker can find related objects.
+	+ several changes to allow the c++/demo program to compile/link.
+	+ change an ifdef in test-directory, to use VC++ wide-character funcs.
+
+20200711
+	+ fix pound-sign mapping in acsc of linux2.6 entry (report by Ingo
+	  Bruckl).
+	+ additional changes for building with Visual Studio C++ and msys2
+	  (reports/patches by "Maarten Anonymous")
+	+ build-improvements for Windows 10 and MinGW (patch by Juergen
+	  Pfeifer).
+	+ fix a typo in curs_printw.3x (patch by William Pursell).
+	+ fix two errors in infotocap which allowed indexing outside the
+	  buffer (report/testcases by Zhang Gan).
+	+ update length of strings in infocmp's usage function to restore a
+	  trailing null on the longest string (report/testcase by Zhang Gen).
+
+20200704
+	+ modify version-check with Ada generics to use the same pattern as in
+	  the check for supported gnat versions (report by Pascal Pignard).
+	> additional changes for building with Visual Studio C++ and msys2
+	  (patches by "Maarten Anonymous"):
+	+ adjust headers/declarations to provide for "dllimport" vs "dllexport"
+	  declarations when constructing DLLs, to worko with Visual Studio C++.
+
+20200627
+	+ build-fixes for gnat 10.1.1, whose gnatmake drops integration with
+	  gprbuild.
+	+ correct buffer-length in test/color_name.h
+
+20200613
+	+ update list of functions in ncurses.3x
+	+ move dlclose() call from lib_mouse.c to delscreen() to avoid a case
+	  in the former which could be called from SIGTSTP handler (Debian
+	  #961097).
 
 20200606
 	+ add xterm+256color2, xterm+88color2, to deprecate nonstandard usage
